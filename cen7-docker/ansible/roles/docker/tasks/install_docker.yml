@@ -1,0 +1,12 @@
+---
+- name: Install Docker
+  yum:
+    name: docker-ce
+    enablerepo: docker-ce-stable
+    state: latest
+
+- name: Docker service state
+  service:
+    name: docker
+    state: started
+    enabled: yes
