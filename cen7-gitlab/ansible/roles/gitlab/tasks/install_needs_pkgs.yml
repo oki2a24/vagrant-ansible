@@ -1,0 +1,42 @@
+---
+# Download GitLab Community Edition (CE) | GitLab https://about.gitlab.com/downloads/#centos7
+# 1. Install and configure the necessary dependencies
+# sudo yum install curl policycoreutils openssh-server openssh-clients
+# sudo systemctl enable sshd
+# sudo systemctl start sshd
+# sudo yum install postfix
+# sudo systemctl enable postfix
+# sudo systemctl start postfix
+# sudo firewall-cmd --permanent --add-service=http
+# sudo systemctl reload firewalld
+
+- name: Install pkgs for GitLab
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - curl
+    - policycoreutils
+    - openssh-server
+    - openssh-clients
+- name: sshd service state
+  service:
+    name: sshd
+    state: started
+    enabled: yes
+
+- name: Install postfix for GitLab
+  yum:
+    name: postfix
+    state: latest
+- name: postfix service state
+  service:
+    name: postfix
+    state: started
+    enabled: yes
+
+- name: Allow http
+  firewalld:
+    service: http
+    permanent: true
+    state: enabled

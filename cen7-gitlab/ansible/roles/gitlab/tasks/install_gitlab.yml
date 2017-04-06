@@ -1,0 +1,42 @@
+---
+# Download GitLab Community Edition (CE) | GitLab https://about.gitlab.com/downloads/#centos7
+# 2. Add the GitLab package server and install the package
+# curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash
+# sudo yum install gitlab-ce
+# 3. Configure and start GitLab
+# sudo gitlab-ctl reconfigure
+
+- name: Get GitLab repository
+  get_url:
+    url: https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh
+    dest: /tmp/script.rpm.sh
+    mode: 0755
+- name: Install GitLab repository
+  command: /tmp/script.rpm.sh
+- name: Install yum-utils
+  yum:
+    name: yum-utils
+    state: latest
+- name: Disable GitLab repository
+  command: yum-config-manager --disable gitlab_gitlab-ce
+
+- name: Install GitLab
+  yum:
+    name: gitlab-ce
+    enablerepo: gitlab_gitlab-ce
+    state: latest
+
+- name: Configure and start GitLab
+  command: gitlab-ctl reconfigure
+
+# Thank you for installing GitLab!
+# gitlab: To configure and start GitLab, RUN THE FOLLOWING COMMAND:
+#
+# sudo gitlab-ctl reconfigure
+#
+# gitlab: GitLab should be reachable at http://localhost
+# gitlab: Otherwise configure GitLab for your system by editing /etc/gitlab/gitlab.rb file
+# gitlab: And running reconfigure again.
+# gitlab: 
+# gitlab: For a comprehensive list of configuration options please see the Omnibus GitLab readme
+# gitlab: https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md
