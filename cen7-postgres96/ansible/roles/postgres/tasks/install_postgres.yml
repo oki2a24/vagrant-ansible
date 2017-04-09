@@ -1,8 +1,8 @@
 ---
 - name: install PostgreSQL 9.6
   yum: 
-    state: latest
-    enablerepo: pgdg96
     name:
       - postgresql96-devel
       - postgresql96-server
+    enablerepo: pgdg96
+    state: latest

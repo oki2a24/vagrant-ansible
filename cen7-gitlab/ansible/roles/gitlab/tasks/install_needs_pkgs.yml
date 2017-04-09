@@ -12,13 +12,12 @@
 
 - name: Install pkgs for GitLab
   yum:
-    name: "{{ item }}"
+    name:
+      - curl
+      - policycoreutils
+      - openssh-server
+      - openssh-clients
     state: latest
-  with_items:
-    - curl
-    - policycoreutils
-    - openssh-server
-    - openssh-clients
 - name: sshd service state
   service:
     name: sshd
