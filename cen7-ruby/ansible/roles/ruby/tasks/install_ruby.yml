@@ -1,0 +1,49 @@
+---
+- name: git clone rbenv
+  git:
+    repo: 'https://github.com/rbenv/rbenv.git'
+    dest: ~/.rbenv
+
+- name: Try to compile dynamic bash extension to speed up rbenv
+  shell: cd ~/.rbenv && src/configure && make -C src
+
+- name: Add ~/.rbenv/bin to your $PATH for access to the rbenv command-line utility
+  lineinfile:
+    dest: ~/.bash_profile
+    line: 'export PATH="$HOME/.rbenv/bin:$PATH"'
+
+#- name: Run ~/.rbenv/bin/rbenv init for shell-specific instructions on how to initialize rbenv to enable shims and autocompletion.
+#  shell: ~/.rbenv/bin/rbenv init
+
+- name: Load rbenv automatically
+  lineinfile:
+    dest: ~/.bash_profile
+    line: 'eval "$(rbenv init -)"'
+
+- name: Install ruby-build
+  git:
+    repo: 'https://github.com/rbenv/ruby-build.git'
+    dest: ~/.rbenv/plugins/ruby-build
+
+- name: Get installed Ruby versions
+  shell: bash -lc "rbenv versions"
+  register: installed_ruby_versions
+  ignore_errors: true
+  changed_when: false
+
+- name: test1
+  debug:
+    msg: "{{ installed_ruby_versions }}"
+- name: test2
+  debug:
+    msg: installed_ruby_versions.stdout_lines.count("2.4.1")
+
+- name: Install Ruby via rbenv
+  shell: bash -lc "rbenv install 2.4.1"
+  when: installed_ruby_versions.stdout_lines.count("2.4.1")
+
+- name: Set global version of Ruby
+  shell: bash -lc "rbenv global 2.4.1"
+
+- name: Run rbenv rehash
+  shell: bash -lc "rbenv rehash"

@@ -1,0 +1,9 @@
+---
+- name: Install packages fro Ruby
+  yum:
+    name:
+      - git
+      - openssl-devel
+      - readline-devel
+      - zlib-devel
+    state: latest

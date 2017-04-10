@@ -1,0 +1,8 @@
+---
+- name: Install Ruby
+  hosts: all
+  become: true
+
+  roles:
+    - common
+    - ruby
