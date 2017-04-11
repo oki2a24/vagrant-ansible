@@ -12,9 +12,6 @@
     dest: ~/.bash_profile
     line: 'export PATH="$HOME/.rbenv/bin:$PATH"'
 
-#- name: Run ~/.rbenv/bin/rbenv init for shell-specific instructions on how to initialize rbenv to enable shims and autocompletion.
-#  shell: ~/.rbenv/bin/rbenv init
-
 - name: Load rbenv automatically
   lineinfile:
     dest: ~/.bash_profile
@@ -28,19 +25,12 @@
 - name: Get installed Ruby versions
   shell: bash -lc "rbenv versions"
   register: installed_ruby_versions
-  ignore_errors: true
   changed_when: false
-
-- name: test1
-  debug:
-    msg: "{{ installed_ruby_versions }}"
-- name: test2
-  debug:
-    msg: installed_ruby_versions.stdout_lines.count("2.4.1")
+  failed_when: false
 
 - name: Install Ruby via rbenv
   shell: bash -lc "rbenv install 2.4.1"
-  when: installed_ruby_versions.stdout_lines.count("2.4.1")
+  when: '"2.4.1" not in installed_ruby_versions.stdout'
 
 - name: Set global version of Ruby
   shell: bash -lc "rbenv global 2.4.1"
