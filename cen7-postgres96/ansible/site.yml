@@ -1,5 +1,5 @@
 ---
-- name: Install Docker
+- name: Install and configure PostgreSQL 9.6
   hosts: all
   become: true
 
