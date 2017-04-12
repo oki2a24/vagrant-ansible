@@ -29,11 +29,11 @@
   failed_when: false
 
 - name: Install Ruby via rbenv
-  shell: bash -lc "rbenv install 2.4.1"
-  when: '"2.4.1" not in installed_ruby_versions.stdout'
+  shell: bash -lc "rbenv install {{ ruby_version }}"
+  when: '"{{ ruby_version }}" not in installed_ruby_versions.stdout'
 
 - name: Set global version of Ruby
-  shell: bash -lc "rbenv global 2.4.1"
+  shell: bash -lc "rbenv global {{ ruby_version }}"
 
 - name: Run rbenv rehash
   shell: bash -lc "rbenv rehash"
