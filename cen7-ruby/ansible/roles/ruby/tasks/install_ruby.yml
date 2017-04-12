@@ -1,0 +1,39 @@
+---
+- name: git clone rbenv
+  git:
+    repo: 'https://github.com/rbenv/rbenv.git'
+    dest: ~/.rbenv
+
+- name: Try to compile dynamic bash extension to speed up rbenv
+  shell: cd ~/.rbenv && src/configure && make -C src
+
+- name: Add ~/.rbenv/bin to your $PATH for access to the rbenv command-line utility
+  lineinfile:
+    dest: ~/.bash_profile
+    line: 'export PATH="$HOME/.rbenv/bin:$PATH"'
+
+- name: Load rbenv automatically
+  lineinfile:
+    dest: ~/.bash_profile
+    line: 'eval "$(rbenv init -)"'
+
+- name: Install ruby-build
+  git:
+    repo: 'https://github.com/rbenv/ruby-build.git'
+    dest: ~/.rbenv/plugins/ruby-build
+
+- name: Get installed Ruby versions
+  shell: bash -lc "rbenv versions"
+  register: installed_ruby_versions
+  changed_when: false
+  failed_when: false
+
+- name: Install Ruby via rbenv
+  shell: bash -lc "rbenv install {{ ruby_version }}"
+  when: '"{{ ruby_version }}" not in installed_ruby_versions.stdout'
+
+- name: Set global version of Ruby
+  shell: bash -lc "rbenv global {{ ruby_version }}"
+
+- name: Run rbenv rehash
+  shell: bash -lc "rbenv rehash"
