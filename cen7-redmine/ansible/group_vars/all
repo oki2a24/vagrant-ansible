@@ -1,4 +1,11 @@
 ---
+# Ruby
 ruby_version: 2.4.1
+
+# PostgreSQL
 postgres_su_pass: vagrant
 redmine_db_passwd: vagrant
+
+# Redmine
+redmine_svn_url: http://svn.redmine.org/redmine/branches/3.3-stable
+redmine_dir: /var/lib/redmine

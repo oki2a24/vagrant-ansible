@@ -1,0 +1,5 @@
+---
+- name: Checkout Redmine codes
+  subversion:
+    repo: "{{ redmine_svn_url }}"
+    dest: "{{ redmine_dir }}"

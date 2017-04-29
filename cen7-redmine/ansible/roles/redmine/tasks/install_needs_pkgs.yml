@@ -1,0 +1,6 @@
+---
+- name: Install packages for Redmine
+  yum:
+    name:
+      - svn
+    state: latest
