@@ -1,0 +1,73 @@
+---
+#- name: pg_hba.confにredmine用設定が存在するか確認
+#  command:
+#    grep redmine /var/lib/pgsql/9.6/data/pg_hba.conf
+#  register:
+#    result_pg_hba
+#  failed_when: result_pg_hba.rc not in [0, 1]
+#  changed_when: false
+
+#- name: pg_hba.conf設定変更用パッチを配置
+#  copy:
+#    src: pg_hba_conf.patch
+#    dest: ~/pg_hba_conf.patch
+#  when:
+#    result_pg_hba.rc == 1
+#
+#- name: pg_hba.confにredmine用設定を追加
+#  shell:
+#    patch -tNp0 /var/lib/pgsql/9.6/data/pg_hba.conf < ~/pg_hba_conf.patch
+#  when:
+#    result_pg_hba.rc == 1
+#  notify: Restart postgresql-9.6
+
+- name: Install patch
+  yum:
+    name: patch
+    state: latest
+
+- name: Apply patch to pg_hba.conf
+  patch:
+    src: pg_hba.conf.patch
+    dest: /var/lib/pgsql/9.6/data/pg_hba.conf
+  notify: Restart postgresql-9.6
+
+
+#- name: PostgreSQL ユーザー作成
+#  become_user: postgres
+#  become_method: su
+#  postgresql_user:
+#    name: redmine
+#    password: "{{ redmine_db_passwd }}"
+#  notify: Restart postgresql-9.6
+
+- name: Create PostgreSQL user for Redmine
+  postgresql_user:
+    name: redmine
+    password: "{{ redmine_db_passwd }}"
+    login_user: postgres
+    login_password: "{{ postgres_su_pass }}"
+  notify: Restart postgresql-9.6
+
+#- name: PostgreSQL データベース作成
+#  become_user: postgres
+#  become_method: su
+#  postgresql_db:
+#    name: redmine
+#    encoding: 'UTF-8'
+#    lc_collate: 'ja_JP.UTF-8'
+#    lc_ctype: 'ja_JP.UTF-8'
+#    template: 'template0'
+#  notify: Restart postgresql-9.6
+
+- name: Create PostgreSQL database for Redmine
+  postgresql_db:
+    name: redmine
+    owner: redmine
+    encoding: 'UTF-8'
+    lc_collate: 'ja_JP.UTF-8'
+    lc_ctype: 'ja_JP.UTF-8'
+    template: 'template0'
+    login_user: postgres
+    login_password: "{{ postgres_su_pass }}"
+  notify: Restart postgresql-9.6
