@@ -3,4 +3,7 @@
   yum:
     name:
       - svn
+      - ImageMagick
+      - ImageMagick-devel
+      - ipa-pgothic-fonts
     state: latest
