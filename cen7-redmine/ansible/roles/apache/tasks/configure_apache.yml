@@ -5,6 +5,11 @@
     state: started
     enabled: yes
 
+- name: Get Passenger setting snippet for Apache module
+  command: /usr/local/rbenv/shims/passenger-install-apache2-module --snippet
+  register: passenger_snippet_vars
+  changed_when: false
+
 - name: Template redmine.conf
   become: yes
   template:

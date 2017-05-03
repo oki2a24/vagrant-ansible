@@ -9,8 +9,6 @@
     src: database.yml.j2
     dest: "{{ redmine_dir }}/config/database.yml"
     force: no
-  register:
-    result_database_yml
 
 - name: Create configuration.yml
   template:
