@@ -1,0 +1,32 @@
+---
+- name: Check Passenger installed
+  command: test -f /usr/local/rbenv/shims/passenger-install-apache2-module
+  register: test_passenger_install_apache2_module
+  failed_when: test_passenger_install_apache2_module.rc not in [0, 1]
+  changed_when: false
+
+- name: debug test_passenger_install_apache2_module
+  debug:
+    msg: "{{ test_passenger_install_apache2_module }}"
+
+- name: Install Passenger
+  gem:
+    name: passenger
+    user_install: no
+    executable: /usr/local/rbenv/shims/gem
+  when: test_passenger_install_apache2_module.rc == 1
+
+- name: Install Apache module for Passenger
+  command: /usr/local/rbenv/shims/passenger-install-apache2-module --auto --languages ruby
+  args:
+    chdir: "{{ redmine_dir }}"
+  when: test_passenger_install_apache2_module.rc == 1
+
+- name: Get Passenger setting snippet for Apache module
+  command: /usr/local/rbenv/shims/passenger-install-apache2-module --snippet
+  register: passenger_snippet_vars
+  changed_when: false
+
+- name: debug passenger_snippet_vars
+  debug:
+    msg: "{{ passenger_snippet_vars }}"

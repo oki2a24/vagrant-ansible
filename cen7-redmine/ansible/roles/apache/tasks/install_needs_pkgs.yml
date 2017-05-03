@@ -1,0 +1,8 @@
+---
+- name: Install packages for Passenger
+  yum:
+    name:
+      - curl-devel
+      - httpd
+      - httpd-devel
+    state: latest

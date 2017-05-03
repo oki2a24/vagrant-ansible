@@ -4,10 +4,6 @@
   args:
     chdir: "{{ redmine_dir }}"
 
-- name: debug env
-  debug:
-    msg: "{{ ansible_env.PATH }}"
-
 - name: Migrate Database
   command: /usr/local/rbenv/shims/bundle exec rake db:migrate
   args:

@@ -23,15 +23,9 @@
   changed_when: false
   failed_when: false
 
-# TASK [ruby-sw : Install Ruby via rbenv] ****************************************
-#  [WARNING]: when statements should not include jinja2 templating delimiters
-# such as {{ }} or {% %}. Found: "{{ ruby_version }}" not in
-# installed_ruby_versions.stdout
-# ↓
-# [WARNING]: when statements should not include jinja2 templating delimiters such as {{ }} or {% %}. · Issue #22397 · ansible/ansible https://github.com/ansible/ansible/issues/22397
 - name: Install Ruby via rbenv
   shell: bash -lc "rbenv install {{ ruby_version }}"
-  when: '"{{ ruby_version }}" not in installed_ruby_versions.stdout'
+  when: ruby_version not in installed_ruby_versions.stdout
 
 - name: Set global version of Ruby
   shell: bash -lc "rbenv global {{ ruby_version }}"
