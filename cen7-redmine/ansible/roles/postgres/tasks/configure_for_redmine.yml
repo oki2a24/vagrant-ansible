@@ -1,0 +1,31 @@
+---
+- name: Install patch
+  yum:
+    name: patch
+    state: latest
+
+- name: Apply patch to pg_hba.conf
+  patch:
+    src: pg_hba.conf.patch
+    dest: /var/lib/pgsql/9.6/data/pg_hba.conf
+  notify: Restart postgresql-9.6
+
+- name: Create PostgreSQL user for Redmine
+  postgresql_user:
+    name: redmine
+    password: "{{ redmine_db_passwd }}"
+    login_user: postgres
+    login_password: "{{ postgres_su_pass }}"
+  notify: Restart postgresql-9.6
+
+- name: Create PostgreSQL database for Redmine
+  postgresql_db:
+    name: redmine
+    owner: redmine
+    encoding: 'UTF-8'
+    lc_collate: 'ja_JP.UTF-8'
+    lc_ctype: 'ja_JP.UTF-8'
+    template: 'template0'
+    login_user: postgres
+    login_password: "{{ postgres_su_pass }}"
+  notify: Restart postgresql-9.6

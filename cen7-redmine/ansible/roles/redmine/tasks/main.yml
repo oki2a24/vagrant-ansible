@@ -1,0 +1,4 @@
+---
+- include: install_needs_pkgs.yml
+- include: install_redmine.yml
+- include: initiate_redmine.yml

@@ -1,0 +1,9 @@
+---
+- name: Install packages for Redmine
+  yum:
+    name:
+      - svn
+      - ImageMagick
+      - ImageMagick-devel
+      - ipa-pgothic-fonts
+    state: latest

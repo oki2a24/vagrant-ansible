@@ -1,0 +1,32 @@
+---
+- name: Start and enable httpd
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: Get Passenger setting snippet for Apache module
+  command: /usr/local/rbenv/shims/passenger-install-apache2-module --snippet
+  register: passenger_snippet_vars
+  changed_when: false
+
+- name: Template redmine.conf
+  become: yes
+  template:
+    src: redmine.conf.j2
+    dest: /etc/httpd/conf.d/redmine.conf
+  notify: Restart httpd
+
+- name: Change Redmine directory owner
+  file:
+    path: "{{ redmine_dir }}"
+    owner: apache
+    group: apache
+    recurse: yes
+  notify: Restart httpd
+
+- name: Apply patch to redmine.conf
+  patch:
+    src: redmine.conf.patch
+    dest: /etc/httpd/conf.d/redmine.conf
+  notify: Restart httpd

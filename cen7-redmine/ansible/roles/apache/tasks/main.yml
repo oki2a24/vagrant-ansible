@@ -1,0 +1,4 @@
+---
+- include: install_needs_pkgs.yml
+- include: install_passenger.yml
+- include: configure_apache.yml

@@ -1,0 +1,11 @@
+---
+- name: Install Redmine
+  hosts: all
+  become: true
+
+  roles:
+    - common
+    - ruby-sw
+    - postgres
+    - redmine
+    - apache

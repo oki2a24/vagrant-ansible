@@ -1,0 +1,18 @@
+---
+- name: Get status whethere passenger-install-apache2-module is exist or not
+  stat: 
+    path: /usr/local/rbenv/shims/passenger-install-apache2-module
+  register: passenger_install_apache2_module
+
+- name: Install Passenger
+  gem:
+    name: passenger
+    user_install: no
+    executable: /usr/local/rbenv/shims/gem
+  when: not passenger_install_apache2_module.stat.exists
+
+- name: Install Apache module for Passenger
+  command: /usr/local/rbenv/shims/passenger-install-apache2-module --auto --languages ruby
+  args:
+    chdir: "{{ redmine_dir }}"
+  when: not passenger_install_apache2_module.stat.exists

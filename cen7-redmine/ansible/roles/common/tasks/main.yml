@@ -1,0 +1,37 @@
+---
+- name: Upgrade all packages
+  yum:
+    name: '*'
+    state: latest
+
+- name: Install Vim
+  yum:
+    name: vim-enhanced
+    state: latest
+
+- name: Install chrony
+  yum:
+    name: chrony
+    state: latest
+- name: chrony service state
+  service:
+    name: chronyd
+    state: started
+    enabled: yes
+
+- name: Disable SELinux
+  selinux:
+    state: disabled
+
+- name: Allow http
+  firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: yes
+
+- name: Install Development Tools
+  become: yes
+  yum:
+    name: "@Development Tools"
+    state: latest

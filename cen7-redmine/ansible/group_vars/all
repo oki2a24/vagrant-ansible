@@ -1,0 +1,13 @@
+---
+# Ruby
+ruby_version: 2.3.4
+
+# PostgreSQL
+postgres_su_pass: vagrant
+redmine_db_passwd: vagrant
+
+# Redmine
+redmine_svn_url: http://svn.redmine.org/redmine/branches/3.3-stable
+redmine_dir: /var/lib/redmine
+
+fqdn: 192.168.56.11

@@ -1,0 +1,14 @@
+---
+# PostgreSQL RPM Repository (with Yum) https://yum.postgresql.org/
+- name: Install PostgreSQL 9.6 repository
+  yum:
+    name: https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+    state: present
+
+- name: Install yum-utils
+  yum:
+    name: yum-utils
+    state: latest
+
+- name: Disable PostgreSQL 9.6 repository
+  command: yum-config-manager --disable pgdg96
