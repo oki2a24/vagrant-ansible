@@ -18,3 +18,31 @@
   environment:
     RAILS_ENV: production
     REDMINE_LANG: ja
+
+- name: Set default_language Japanese
+  command: /usr/local/rbenv/shims/bundle exec rails r 'Setting["default_language"]="ja"'
+  args:
+    chdir: "{{ redmine_dir }}"
+  environment:
+    RAILS_ENV: production
+
+- name: Set user_format lastname_firstname
+  command: /usr/local/rbenv/shims/bundle exec rails r 'Setting["user_format"]=:lastname_firstname'
+  args:
+    chdir: "{{ redmine_dir }}"
+  environment:
+    RAILS_ENV: production
+
+- name: 添付ファイルとリポジトリのエンコーディングを設定
+  command:
+    /usr/local/rbenv/shims/bundle exec rails r 'Setting["repositories_encodings"]="UTF-8,CP932,EUC-JP"'
+    chdir={{ redmine_dir }}
+  environment:
+    RAILS_ENV: production
+
+- name: 添付ファイルのサムネイルを表示
+  command: /usr/local/rbenv/shims/bundle exec rails r 'Setting["thumbnails_enabled"]="1"'
+  args:
+    chdir: "{{ redmine_dir }}"
+  environment:
+    RAILS_ENV: production
