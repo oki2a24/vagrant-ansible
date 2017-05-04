@@ -1,5 +1,5 @@
 ---
-- name: Install packages fro Ruby
+- name: Install packages for Ruby
   yum:
     name:
       - git

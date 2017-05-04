@@ -25,7 +25,7 @@
 
 - name: Install Ruby via rbenv
   shell: bash -lc "rbenv install {{ ruby_version }}"
-  when: '"{{ ruby_version }}" not in installed_ruby_versions.stdout'
+  when: ruby_version not in installed_ruby_versions.stdout
 
 - name: Set global version of Ruby
   shell: bash -lc "rbenv global {{ ruby_version }}"
