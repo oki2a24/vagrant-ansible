@@ -1,0 +1,26 @@
+---
+- name: git clone Google Test
+  git:
+    repo: https://github.com/google/googletest.git
+    dest: /usr/local/googletest
+    version: "{{ google_test_version }}"
+
+- name: Create build directory
+  file:
+    path: /usr/local/googletest/mybuild
+    state: directory
+    mode: 0755
+
+- name: CMake Google Test as shared libs
+  command: cmake -DBUILD_SHARED_LIBS=ON ..
+  args:
+    chdir: /usr/local/googletest/mybuild
+
+- name: Make Google Test
+  make:
+    chdir: /usr/local/googletest/mybuild
+
+- name: Copy googletest.sh
+  copy:
+    src: googletest.sh
+    dest: /etc/profile.d/googletest.sh
