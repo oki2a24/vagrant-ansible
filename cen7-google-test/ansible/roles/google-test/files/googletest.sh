@@ -1,2 +1,5 @@
-export CPLUS_INCLUDE_PATH="/usr/local/googletest/googletest/include:${CPLUS_INCLUDE_PATH}"
-export LIBRARY_PATH="/usr/local/googletest/mybuild/googlemock:${LIBRARY_PATH}"
+export GTEST_ROOT="/usr/local/googletest"
+export GTEST_INCLUDEDIR="${GTEST_ROOT}/googletest/include"
+export GMOCK_INCLUDEDIR="${GTEST_ROOT}/googlemock/include"
+export GMOCK_LIBDIR="${GTEST_ROOT}/mybuild/googlemock"
+export GTEST_LIBDIR="${GTEST_ROOT}/mybuild/googlemock/gtest"

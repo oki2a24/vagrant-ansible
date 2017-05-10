@@ -12,7 +12,8 @@
     mode: 0755
 
 - name: CMake Google Test as shared libs
-  command: cmake -DBUILD_SHARED_LIBS=ON ..
+#  command: cmake -DBUILD_SHARED_LIBS=ON ..
+  command: cmake ..
   args:
     chdir: /usr/local/googletest/mybuild
 
