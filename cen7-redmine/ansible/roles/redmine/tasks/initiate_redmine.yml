@@ -33,14 +33,14 @@
   environment:
     RAILS_ENV: production
 
-- name: 添付ファイルとリポジトリのエンコーディングを設定
+- name: Set attachment and repositories encoding
   command:
     /usr/local/rbenv/shims/bundle exec rails r 'Setting["repositories_encodings"]="UTF-8,CP932,EUC-JP"'
     chdir={{ redmine_dir }}
   environment:
     RAILS_ENV: production
 
-- name: 添付ファイルのサムネイルを表示
+- name: Set to show attachment thumbnails
   command: /usr/local/rbenv/shims/bundle exec rails r 'Setting["thumbnails_enabled"]="1"'
   args:
     chdir: "{{ redmine_dir }}"
