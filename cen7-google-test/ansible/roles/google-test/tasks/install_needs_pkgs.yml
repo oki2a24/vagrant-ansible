@@ -1,0 +1,8 @@
+---
+- name: Install needs packages
+  yum:
+    name:
+      - git
+      - cmake
+      - "@Development Tools"
+    state: latest
