@@ -4,7 +4,6 @@
     name:
       - httpd-devel
       - php
-#      - php-devel
     state: latest
 
 - name: Install phpMyAdmin
