@@ -1,0 +1,15 @@
+---
+- name: Install remi-release-7
+  yum:
+    name: http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+    state: present
+
+- name: Install php
+  yum:
+    name:
+      - php
+      - php-gd
+      - php-mbstring
+      - php-opcache
+    enablerepo: remi-php71
+    state: latest
