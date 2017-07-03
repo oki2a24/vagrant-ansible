@@ -1,0 +1,15 @@
+---
+- name: Install software-properties-common
+  apt:
+    name: software-properties-common
+    state: latest
+
+- name: Add Ethereum repository from PPA
+  apt_repository:
+    repo: 'ppa:ethereum/ethereum'
+
+- name: Install ethereum
+  apt:
+    name: ethereum
+    state: latest
+    update_cache: yes
