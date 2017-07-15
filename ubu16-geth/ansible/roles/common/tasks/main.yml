@@ -1,9 +1,15 @@
 ---
+# apt - Manages apt-packages — Ansible Documentation http://docs.ansible.com/ansible/apt_module.html
+# > Three of the upgrade modes (full, safe and its alias yes) require aptitude, otherwise apt-get suffices.
+# とあったのでインストールしたが、その後、upgrade: dist するように変更したので不要かも。
 - name: Install aptitude
   apt:
     name: aptitude
     state: latest
 
+# apt-get dist-upgrade
+# apt-get update したいときは、さらにオプション付ける必要ありかも
+# [Ubuntu] apt-get まとめ - Qiita http://qiita.com/white_aspara25/items/723ae4ebf0bfefe2115c
 - name: Upgrade all packages to the latest version
   apt:
     upgrade: dist

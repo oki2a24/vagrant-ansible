@@ -1,0 +1,5 @@
+---
+# Meteorを準備する · Ethereum入門 https://book.ethereum-jp.net/meteor_dapp/about_meteor.html
+
+# curl https://install.meteor.com | sh
+# meteor --version
