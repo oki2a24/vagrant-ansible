@@ -1,9 +1,8 @@
 ---
-- name: Install aptitude
+- name: Run the equivalent of "apt-get update" as a separate step
   apt:
-    name: aptitude
-    state: latest
+    update_cache: yes
 
-- name: Upgrade all packages to the latest version
+- name: Update and Upgrade all packages to the latest version
   apt:
     upgrade: dist
