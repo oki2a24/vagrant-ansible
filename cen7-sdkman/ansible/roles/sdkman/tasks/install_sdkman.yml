@@ -1,0 +1,11 @@
+- name: Fetch SDKMAN!
+  uri:
+    url: https://get.sdkman.io
+    return_content: yes
+  register: get_sdkman_io
+
+- name: Install SDKMAN!
+  shell: "{{ get_sdkman_io.content }}"
+
+- name: Self-Update SDKMAN!
+  command: bash -lc "sdk selfupdate force"
