@@ -1,25 +1,8 @@
-# curl -s "https://get.sdkman.io" | bash
-# source "/root/.sdkman/bin/sdkman-init.sh"
-# sdk install grails
-
-# /usr/local/sdkman
-
-# - name: Install SDKMAN!
-#   shell: curl -s "https://get.sdkman.io" | bash
-# TASK [sdkman : Install SDKMAN!] ************************************************
-# changed: [default]
-#  [WARNING]: Consider using get_url or uri module rather than running curl
-# と言われたので、別の方法を考えたい。
-
 - name: Fetch SDKMAN!
   uri:
     url: https://get.sdkman.io
     return_content: yes
   register: get_sdkman_io
-
-#- name: debug
-#  debug:
-#    msg: "{{ get_sdkman_io.content }}"
 
 - name: Install SDKMAN!
   shell: "{{ get_sdkman_io.content }}"
@@ -28,6 +11,15 @@
 
 - name: Self-Update SDKMAN!
   command: bash -lc "sdk selfupdate force"
+  environment:
+    SDKMAN_DIR: /usr/local/sdkman
+
+- name: Add full access rights
+  file:
+    path: /usr/local/sdkman
+    state: directory
+    mode: 0777
+    recurse: yes
 
 - name: Copy sdkman.sh
   copy:
