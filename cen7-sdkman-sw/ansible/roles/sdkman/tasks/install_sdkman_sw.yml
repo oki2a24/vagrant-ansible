@@ -7,16 +7,16 @@
 - name: Install SDKMAN!
   shell: "{{ get_sdkman_io.content }}"
   environment:
-    SDKMAN_DIR: /usr/local/sdkman
+    SDKMAN_DIR: "{{ sdkman_dir }}"
 
 - name: Self-Update SDKMAN!
   command: bash -lc "sdk selfupdate force"
   environment:
-    SDKMAN_DIR: /usr/local/sdkman
+    SDKMAN_DIR: "{{ sdkman_dir }}"
 
 - name: Add full access rights
   file:
-    path: /usr/local/sdkman
+    path: "{{ sdkman_dir }}"
     state: directory
     mode: 0777
     recurse: yes
