@@ -1,0 +1,6 @@
+---
+- name: Restart postgresql-9.x
+  service:
+    name: postgresql-9.{{ pg_minor_ver_num }}.service 
+    state: restarted
+    enabled: yes
