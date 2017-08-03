@@ -1,0 +1,9 @@
+---
+- name: Install and configure PostgreSQL 9.6
+  hosts: all
+  become: true
+
+  roles:
+    - common
+    - postgres
+    - phppgadmin

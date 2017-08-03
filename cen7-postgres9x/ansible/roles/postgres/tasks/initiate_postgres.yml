@@ -1,0 +1,36 @@
+---
+- name: Get status whethere db cluster is exist or not
+  stat: 
+    path: /var/lib/pgsql/9.{{ pg_minor_ver_num }}/data/PG_VERSION
+  register: dbcluster
+
+- name: Create a new PostgreSQL database cluster
+  shell: /usr/pgsql-9.{{ pg_minor_ver_num }}/bin/initdb -D /var/lib/pgsql/9.{{ pg_minor_ver_num }}/data --no-locale
+  become: yes
+  become_user: postgres
+  when: not dbcluster.stat.exists
+
+- name: Start and enable PostgreSQL
+  service:
+    name: postgresql-9.{{ pg_minor_ver_num }}.service 
+    state: started
+    enabled: yes
+
+- name: Copy pg_hba.conf
+  copy:
+    src: pg_hba.conf
+    dest: /var/lib/pgsql/9.{{ pg_minor_ver_num }}/data/pg_hba.conf
+    backup: yes
+  notify: Restart postgresql-9.x
+
+- name: Install psycopg2
+  yum:
+    name: python-psycopg2
+    state: latest
+    
+- name: Set password to database superuser
+  postgresql_user:
+    user: postgres
+    password: "{{ postgres_su_pass }}"
+    login_password: "{{ postgres_su_pass }}"
+  notify: Restart postgresql-9.x

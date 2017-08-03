@@ -1,0 +1,3 @@
+---
+- include: install_phppgadmin.yml
+- include: configure_phppgadmin.yml
