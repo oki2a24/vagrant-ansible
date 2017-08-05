@@ -1,0 +1,5 @@
+---
+- include: install_needs_pkgs.yml
+- include: install_postgres.yml
+- include: initiate_postgres.yml
+- include: add_db_user.yml

@@ -1,0 +1,8 @@
+---
+- name: install PostgreSQL 9.x
+  yum: 
+    name:
+      - postgresql9{{ pg_minor_ver_num }}-devel
+      - postgresql9{{ pg_minor_ver_num }}-server
+    enablerepo: pgdg9{{ pg_minor_ver_num }}
+    state: latest

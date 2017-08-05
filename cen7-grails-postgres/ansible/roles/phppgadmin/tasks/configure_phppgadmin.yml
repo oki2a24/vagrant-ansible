@@ -1,0 +1,22 @@
+---
+#- name: Copy httpd phpPgAdmin.conf
+#  copy:
+#    src: phpPgAdmin.conf
+#    dest: /etc/httpd/conf.d/phpPgAdmin.conf
+#    backup: yes
+#  notify: Restart httpd
+- name: Apply patch to phpPgAdmin.conf
+  patch:
+    src: phpPgAdmin.conf.patch
+    dest: /etc/httpd/conf.d/phpPgAdmin.conf
+  notify: Restart httpd
+
+#- name: Copy config.inc.php
+#  copy:
+#    src: config.inc.php
+#    dest: /usr/share/phpPgAdmin/conf/config.inc.php
+#    backup: yes
+- name: Apply patch to config.inc.php
+  patch:
+    src: config.inc.php.patch
+    dest: /etc/phpPgAdmin/config.inc.php
