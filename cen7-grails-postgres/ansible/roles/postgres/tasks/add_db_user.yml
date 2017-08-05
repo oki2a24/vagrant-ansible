@@ -1,0 +1,19 @@
+---
+- name: Create a user(role)
+  postgresql_user:
+    name: "{{ pg_user }}"
+    password: "{{ pg_user_pass }}"
+    role_attr_flags: NOSUPERUSER,INHERIT,NOCREATEDB,NOCREATEROLE,NOREPLICATION
+    login_password: "{{ postgres_su_pass }}"
+  notify: Restart postgresql-9.x
+
+- name: Create a DB
+  postgresql_db:
+    name: "{{ pg_db }}"
+    owner: "{{ pg_user }}"
+    encoding: UTF-8
+    lc_collate: C
+    lc_ctype: C
+    template: template0
+    login_password: "{{ postgres_su_pass }}"
+  notify: Restart postgresql-9.x

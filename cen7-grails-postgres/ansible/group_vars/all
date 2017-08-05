@@ -1,0 +1,9 @@
+---
+sdkman_dir: /usr/local/sdkman
+java_version: 
+grails_version: 
+pg_minor_ver_num: 6
+postgres_su_pass: vagrant
+pg_user: testpguser
+pg_user_pass: testpgpass
+pg_db: testpgdb

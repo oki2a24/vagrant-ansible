@@ -1,0 +1,14 @@
+---
+# PostgreSQL RPM Repository (with Yum) https://yum.postgresql.org/
+- name: Install PostgreSQL 9.x repository
+  yum:
+    name: https://download.postgresql.org/pub/repos/yum/9.{{ pg_minor_ver_num }}/redhat/rhel-7-x86_64/pgdg-centos9{{ pg_minor_ver_num }}-9.{{ pg_minor_ver_num }}-3.noarch.rpm
+    state: present
+
+- name: Install yum-utils
+  yum:
+    name: yum-utils
+    state: latest
+
+- name: Disable PostgreSQL 9.x repository
+  command: yum-config-manager --disable pgdg9{{ pg_minor_ver_num }}
