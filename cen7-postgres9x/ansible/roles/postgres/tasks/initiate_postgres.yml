@@ -5,7 +5,7 @@
   register: dbcluster
 
 - name: Create a new PostgreSQL database cluster
-  shell: /usr/pgsql-9.{{ pg_minor_ver_num }}/bin/initdb -D /var/lib/pgsql/9.{{ pg_minor_ver_num }}/data --no-locale
+  command: /usr/pgsql-9.{{ pg_minor_ver_num }}/bin/initdb -D /var/lib/pgsql/9.{{ pg_minor_ver_num }}/data --no-locale --encoding UTF8
   become: yes
   become_user: postgres
   when: not dbcluster.stat.exists
@@ -16,11 +16,15 @@
     state: started
     enabled: yes
 
-- name: Copy pg_hba.conf
-  copy:
-    src: pg_hba.conf
-    dest: /var/lib/pgsql/9.{{ pg_minor_ver_num }}/data/pg_hba.conf
-    backup: yes
+- name: Install patch
+  yum:
+    name: patch
+    state: latest
+
+- name: Apply patch to pg_hba.conf
+  patch:
+    src: pg_hba.conf.patch
+    dest: /var/lib/pgsql/9.6/data/pg_hba.conf
   notify: Restart postgresql-9.x
 
 - name: Install psycopg2

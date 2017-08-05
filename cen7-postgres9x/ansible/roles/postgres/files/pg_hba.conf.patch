@@ -1,0 +1,17 @@
+--- /var/lib/pgsql/9.6/data/pg_hba.conf.org	2017-08-05 13:59:39.151965975 +0900
++++ /var/lib/pgsql/9.6/data/pg_hba.conf	2017-08-05 14:04:19.226201131 +0900
+@@ -81,11 +81,11 @@
+ # TYPE  DATABASE        USER            ADDRESS                 METHOD
+ 
+ # "local" is for Unix domain socket connections only
+-local   all             all                                     trust
++local   all             all                                     md5
+ # IPv4 local connections:
+-host    all             all             127.0.0.1/32            trust
++host    all             all             127.0.0.1/32            md5
+ # IPv6 local connections:
+-host    all             all             ::1/128                 trust
++host    all             all             ::1/128                 md5
+ # Allow replication connections from localhost, by a user with the
+ # replication privilege.
+ #local   replication     postgres                                trust

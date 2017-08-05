@@ -1,0 +1,31 @@
+--- /etc/httpd/conf.d/phpPgAdmin.conf.org	2014-01-14 17:05:28.000000000 +0900
++++ /etc/httpd/conf.d/phpPgAdmin.conf	2017-08-05 14:31:29.580961110 +0900
+@@ -1,23 +1,7 @@
+-#
+-# This configuration file maps the phpPgAdmin directory into the URL space. 
+-# By default this application is only accessible from the local host.
+-#
+-
+ Alias /phpPgAdmin /usr/share/phpPgAdmin
++Alias /phppgadmin /usr/share/phpPgAdmin
+ 
+-<Location /phpPgAdmin>
+-    <IfModule mod_authz_core.c>
+-        # Apache 2.4
+-        Require local
+-        #Require host example.com
+-    </IfModule>
+-    <IfModule !mod_authz_core.c>
+-        # Apache 2.2
+-        Order deny,allow
+-        Deny from all
+-        Allow from 127.0.0.1
+-        Allow from ::1
+-        # Allow from .example.com
+-    </IfModule>
+-</Location>
+-
++<Directory /usr/share/phpPgAdmin/>
++  AllowOverride all
++  Require all granted
++</Directory>
