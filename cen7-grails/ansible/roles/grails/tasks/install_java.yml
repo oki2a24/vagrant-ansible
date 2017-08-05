@@ -1,3 +1,18 @@
 ---
+- name: Install python-pip
+  yum:
+    name: python-pip
+    enablerepo: epel
+    state: latest
+
+- name: Install pexpect
+  pip:
+    name: pexpect
+    state: latest
+
 - name: Install Java
-  command: bash -lc "sdk install java"
+  expect:
+    command: bash -lc "sdk install java {{ java_version }}"
+    responses:
+      "Do you agree to the terms of this agreement¥¥? ¥¥(Y¥¥/n¥¥): ": "Y"
+    timeout: 1200
