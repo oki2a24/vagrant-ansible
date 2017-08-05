@@ -1,2 +1,4 @@
 ---
 sdkman_dir: /usr/local/sdkman
+java_version: 
+grails_version: 

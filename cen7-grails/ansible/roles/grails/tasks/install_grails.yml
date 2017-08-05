@@ -1,6 +1,6 @@
 ---
 - name: Install Grails
-  command: bash -lc "sdk install grails"
+  command: bash -lc "sdk install grails {{ grails_version }}"
 
 - name: Allow Tomcat
   firewalld:
