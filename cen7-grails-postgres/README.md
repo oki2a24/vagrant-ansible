@@ -14,3 +14,9 @@
 - phpPgAdmin もインストールする。
   - http://ipadress/phppgadmin/
   - http://ipadress/phpPgAdmin/
+
+## Vim
+- プラグインマネージャは、dein.vim を使用する。
+- カラースキームとして、altercation/vim-colors-solarized を使用する。
+- Vim 設定は、全ユーザに適用する。
+- [2 Getting Started 3.3.0](http://docs.grails.org/latest/guide/gettingStarted.html#ide) で紹介されている、[Using VIM as your Grails IDE Part 1: Navigating your project | Object Partners](https://objectpartners.com/2012/02/21/using-vim-as-your-grails-ide-part-1-navigating-your-project/) のページの Vim プラグインを導入する。

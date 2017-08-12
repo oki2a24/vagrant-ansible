@@ -1,0 +1,17 @@
+---
+- name: Install needs packages
+  yum:
+    name:
+      - git
+      - ctags
+    state: latest
+
+- name: Copy vimrc.grails
+  copy:
+    src: vimrc.grails
+    dest: /etc/vimrc.grails
+
+- name: Apply patch to /etc/vimrc
+  patch:
+    src: vimrc.grails.patch
+    dest: /etc/vimrc

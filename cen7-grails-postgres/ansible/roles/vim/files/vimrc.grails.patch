@@ -1,0 +1,11 @@
+--- /etc/vimrc.org	2016-12-22 02:00:36.000000000 +0900
++++ /etc/vimrc	2017-08-12 07:53:06.188035077 +0900
+@@ -62,3 +62,8 @@ endif
+ " Don't wake up system with blinking cursor:
+ " http://www.linuxpowertop.org/known.php
+ let &guicursor = &guicursor . ",a:blinkon0"
++
++" Grails 設定読込
++if filereadable(expand('/etc/vimrc.grails'))
++  source /etc/vimrc.grails
++endif
