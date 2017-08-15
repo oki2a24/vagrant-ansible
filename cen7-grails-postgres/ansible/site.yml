@@ -4,8 +4,15 @@
   become: true
 
   roles:
-    - common
-    - sdkman
-    - grails
-    - postgres
-    - phppgadmin
+    - role: common
+      tags: common
+    - role: sdkman
+      tags: sdkman
+    - role: grails
+      tags: grails
+    - role: postgres
+      tags: postgres
+    - role: phppgadmin
+      tags: phppgadmin
+    - role: neovim
+      tags: neovim

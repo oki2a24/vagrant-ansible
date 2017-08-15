@@ -14,3 +14,8 @@
 - phpPgAdmin もインストールする。
   - http://ipadress/phppgadmin/
   - http://ipadress/phpPgAdmin/
+
+## Neovim
+- [ ] プラグインマネージャは、dein.vim を使用する。
+- [ ] カラースキームとして、altercation/vim-colors-solarized を使用する。
+- [ ] Vim 設定は、全ユーザに適用する。

@@ -1,0 +1,35 @@
+---
+- name: Install epel-release
+  yum:
+    name: epel-release
+    state: present
+
+- name: Download Neovim repository
+  get_url:
+    url: https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo
+    dest: /etc/yum.repos.d/dperson-neovim-epel-7.repo
+
+- name: Install yum-utils
+  yum:
+    name: yum-utils
+    state: latest
+
+- name: Disable Neovim repository
+  command: yum-config-manager --disable dperson-neovim
+
+- name: Install Neovim
+  yum:
+    name: neovim
+    enablerepo: epel,dperson-neovim
+    state: latest
+
+
+#- name: Copy vimrc.grails
+#  copy:
+#    src: vimrc.grails
+#    dest: /etc/vimrc.grails
+#
+#- name: Apply patch to /etc/vimrc
+#  patch:
+#    src: vimrc.grails.patch
+#    dest: /etc/vimrc
