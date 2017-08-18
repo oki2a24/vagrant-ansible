@@ -24,7 +24,7 @@
 - name: Apply patch to pg_hba.conf
   patch:
     src: pg_hba.conf.patch
-    dest: /var/lib/pgsql/9.6/data/pg_hba.conf
+    dest: /var/lib/pgsql/9.{{ pg_minor_ver_num }}/data/pg_hba.conf
   notify: Restart postgresql-9.x
 
 - name: Install psycopg2
