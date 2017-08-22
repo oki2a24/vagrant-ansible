@@ -1,0 +1,7 @@
+---
+- name: Install pkgs for SDKMAN
+  yum:
+    name:
+      - unzip
+      - zip
+    state: latest

@@ -1,0 +1,6 @@
+---
+sdkman_dir: /usr/local/sdkman
+java_version: 
+grails_version: 
+
+mariadb_root_password: vagrant

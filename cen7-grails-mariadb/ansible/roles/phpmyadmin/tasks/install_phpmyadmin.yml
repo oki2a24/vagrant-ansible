@@ -1,0 +1,37 @@
+---
+- name: Install need packages
+  yum:
+    name:
+      - httpd-devel
+      - php
+    state: latest
+
+- name: Install phpMyAdmin
+  yum:
+    name: phpMyAdmin
+    enablerepo: epel
+    state: latest
+
+- name: Allow http
+  firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: yes
+
+- name: Start and enable httpd service
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: Install patch
+  yum:
+    name: patch
+    state: latest
+
+- name: Apply patch to phpMyAdmin.conf
+  patch:
+    src: phpMyAdmin.conf.patch
+    dest: /etc/httpd/conf.d/phpMyAdmin.conf
+  notify: Restart httpd
