@@ -1,0 +1,3 @@
+---
+- include: install_java.yml
+- include: install_grails.yml

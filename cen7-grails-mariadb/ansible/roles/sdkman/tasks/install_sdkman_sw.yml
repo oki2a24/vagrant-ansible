@@ -1,0 +1,27 @@
+- name: Fetch SDKMAN!
+  uri:
+    url: https://get.sdkman.io
+    return_content: yes
+  register: get_sdkman_io
+
+- name: Install SDKMAN!
+  shell: "{{ get_sdkman_io.content }}"
+  environment:
+    SDKMAN_DIR: "{{ sdkman_dir }}"
+
+- name: Self-Update SDKMAN!
+  command: bash -lc "sdk selfupdate force"
+  environment:
+    SDKMAN_DIR: "{{ sdkman_dir }}"
+
+- name: Add full access rights
+  file:
+    path: "{{ sdkman_dir }}"
+    state: directory
+    mode: 0777
+    recurse: yes
+
+- name: Copy sdkman.sh
+  copy:
+    src: sdkman.sh
+    dest: /etc/profile.d/sdkman.sh
