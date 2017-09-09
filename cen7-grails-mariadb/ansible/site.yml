@@ -4,8 +4,13 @@
   become: true
 
   roles:
-    - common
-    - sdkman
-    - grails
-    - mariadb
-    - phpmyadmin
+    - role: common
+      tags: common
+    - role: sdkman
+      tags: sdkman
+    - role: grails
+      tags: grails
+    - role: mariadb
+      tags: mariadb
+    - role: phpmyadmin
+      tags: phpmyadmin
