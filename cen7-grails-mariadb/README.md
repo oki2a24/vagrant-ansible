@@ -11,3 +11,7 @@
 - phpMyAdmin をインストールする。
   - http://xxx.xxx.xxx.xxx/phpMyAdmin
   - http://xxx.xxx.xxx.xxx/phpmyadmin
+- テスト用の DB を作成する。
+  - DB 名: testmariadb
+  - ユーザ名: testmariauser
+  - パスワード: testmariapass

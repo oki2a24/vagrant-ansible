@@ -1,0 +1,16 @@
+---
+- name : Create a Database
+  mysql_db:
+    name: "{{ mariadb_db }}"
+    state: present
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+
+- name : Create a User
+  mysql_user:
+    name: "{{ mariadb_user }}"
+    password: "{{ mariadb_user_pass }}"
+    priv: '{{ mariadb_db }}.*:ALL'
+    state: present
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
