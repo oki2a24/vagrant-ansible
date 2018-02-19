@@ -2,3 +2,6 @@
 .vagrant/
 .DS_Store
 *.log
+
+linux.x64_11gR2_database_1of2.zip
+linux.x64_11gR2_database_2of2.zip

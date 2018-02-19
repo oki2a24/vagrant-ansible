@@ -1,0 +1,94 @@
+---
+# tasks for the oracle install
+#
+# This role is a rough port of an internal oracle installation script. It makes
+# a few assumptions:
+# - You've already set up your hostname. Both the CentOS installer and Vagrant
+#   will do this for you.
+# - You've already set up ip[6]tables the way you like.
+# - You're running this task as a privileged user (root or sudo)
+# - You've already set up any extra Yum repositories.
+
+    #- include: get_installer.yml
+    #  when: oracle_installer1 != false
+    #  vars:
+    #    installer: "{{ oracle_installer1 }}"
+    #    checksum: "{{ oracle_checksum1 }}"
+    #
+    #- include: get_installer.yml
+    #  when: oracle_installer2 != false
+    #  vars:
+    #    installer: "{{ oracle_installer2 }}"
+    #    checksum: "{{ oracle_checksum2 }}"
+
+#
+# install oracle
+#
+
+- name: check if oracle has already been installed
+  stat: path=/etc/oratab
+  register: oracle_installed
+
+- name: compose the oracle automated installer settings
+  template:
+    src: db_install.rsp.j2
+    dest: "{{ oracle_tmp }}/db_install.rsp"
+    owner: "{{ oracle_user }}"
+    group: "{{ oracle_group }}"
+
+    #- name: install oracle
+    #  become: true
+    #  become_user: "{{ oracle_user }}"
+    #  environment: "{{ ora_user_env }}"
+    #  command: "{{ oracle_tmp }}/database/runInstaller -silent -force -ignoreSysPrereqs -responseFile {{ oracle_tmp }}/db_install.rsp"
+    #  when: not oracle_installed.stat.exists
+    #
+    ## wait_for - Waits for a condition before continuing — Ansible Documentation http://docs.ansible.com/ansible/latest/wait_for_module.html
+    #- name: Wait until the file orainstRoot.sh, root.sh is present before continuing
+    #  wait_for:
+    #    path: "{{ item }}"
+    #  with_items:
+    #    - "{{ oracle_path }}/oraInventory/orainstRoot.sh"
+    #    - "{{ ora_user_env.ORACLE_HOME }}/root.sh"
+    #
+    #- name: general oracle post-installation
+    #  command: "{{ oracle_path }}/oraInventory/orainstRoot.sh"
+    #  when: not oracle_installed.stat.exists
+    #
+    #- name: db-specific oracle post-installation
+    #  command: "{{ ora_user_env.ORACLE_HOME }}/root.sh"
+    #  when: not oracle_installed.stat.exists
+    #
+    #  #- name: turn off the enterprise manager web console
+    #  #  become: true
+    #  #  become_user: "{{ oracle_user }}"
+    #  #  environment: "{{ ora_user_env }}"
+    #  #  command: "{{ ora_user_env.ORACLE_HOME }}/bin/emctl stop dbconsole"
+    #  #  ignore_errors: yes
+    #
+    #- name: set oracle to autostart
+    #  lineinfile:
+    #    dest: /etc/oratab
+    #    state: present
+    #    regexp: "^{{ oracle_db_name }}"
+    #    line: "{{ oracle_db_name }}:{{ ora_user_env.ORACLE_HOME }}:Y"
+    #
+    #- name: compose the oracle init.d script
+    #  template: src=oracle_init.j2 dest=/etc/init.d/oracle mode=0755
+    #
+    #- name: register and start up the oracle service
+    #  service: name=oracle state=restarted enabled=yes
+    #
+    #- name: compose the oracle user creation script
+    #  template:
+    #    src: sqlplus_user_setup.sh.j2
+    #    dest: "{{ oracle_tmp }}/sqlplus_user_setup.sh"
+    #    mode: 0755
+    #    owner: "{{ oracle_user }}"
+    #    group: "{{ oracle_group }}"
+    #
+    #- name: create the oracle db user
+    #  become: true
+    #  become_user: "{{ oracle_user }}"
+    #  environment: "{{ ora_user_env }}"
+    #  command: "{{ oracle_tmp }}/sqlplus_user_setup.sh"

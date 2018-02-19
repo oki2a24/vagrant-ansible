@@ -1,0 +1,13 @@
+---
+- name: Copy oracle installer from local to server
+  copy:
+    src: "{{ installer }}"
+    dest: "{{ oracle_tmp }}/"
+
+- name: verify installer checksum
+  command: cksum {{ oracle_tmp }}/{{ installer }}
+  register: installer_check
+  failed_when: "installer_check.stdout.find('{{ checksum }}') != 0"
+
+- name: unzip installer
+  unarchive: src={{ oracle_tmp }}/{{ installer }} dest={{ oracle_tmp }}

@@ -1,0 +1,41 @@
+---
+#
+# install dependencies
+#
+
+- name: install dev tools
+  yum: name="@Development tools" state=present
+
+- name: install x86 oracle dependencies
+  yum: name={{ item }} state=present
+  with_items:
+    - man
+    - wget
+    - unzip
+    - unixODBC
+    - unixODBC-devel
+    - unixODBC-devel*x86_64
+    - unixODBC-*x86_64
+    - compat-libstdc++-33
+    - compat-libstdc++-296
+    - compat-libstdc*x86_64
+    - compat-libcap*
+    - compat-glibc-2*
+    - elfutils-devel*x86_64
+    - glibc-*
+    - gcc-c++*x86_64
+    - libaio
+    - libaio-devel
+    - libaio-devel*x86_64
+    - libtool-ltdl*x86_64
+    - readline
+    - libcap*x86_64
+    - libattr*x86_64
+    - sysstat
+  # - pdksh # skip this because it's bad and we're getting ksh already
+    - ksh
+
+- name: Install libselinux-python
+  yum:
+    name: libselinux-python
+    state: latest

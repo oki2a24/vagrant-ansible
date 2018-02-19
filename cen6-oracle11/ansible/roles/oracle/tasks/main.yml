@@ -1,0 +1,24 @@
+---
+#- import_tasks: install_needs_pkgs.yml
+
+
+#
+# unpack the oracle installers
+#
+#- import_tasks: copy_installer.yml
+#  vars:
+#    installer: "{{ oracle_installer1 }}"
+#    checksum: "{{ oracle_checksum1 }}"
+#
+#- import_tasks: copy_installer.yml
+#  vars:
+#    installer: "{{ oracle_installer2 }}"
+#    checksum: "{{ oracle_checksum2 }}"
+
+#- name: make sure the installer directory exists
+#  stat: path={{ oracle_tmp }}/database
+#  register: install_dir
+#  failed_when: not install_dir.stat.exists or not install_dir.stat.isdir
+#
+#- import_tasks: set_sys_config.yml
+- import_tasks: all.yml
