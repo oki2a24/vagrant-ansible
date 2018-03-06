@@ -1,0 +1,13 @@
+---
+- name: Download Oracle JDK package
+  get_url:
+    url: "{{ jdk_url }}"
+    dest: "/tmp/{{ jdk_rpm }}"
+    mode: 0644
+    validate_certs: no
+    headers: "Cookie: oraclelicense=accept-securebackup-cookie"
+
+- name: Install Oracle JDK
+  yum:
+    name: "/tmp/{{ jdk_rpm }}"
+    state: present
