@@ -1,13 +1,13 @@
 ---
 - name: Download Oracle JDK package
   get_url:
-    url: http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm
-    dest: /tmp/jdk-8u131-linux-x64.rpm
+    url: "{{ jdk_url }}"
+    dest: "/tmp/{{ jdk_rpm }}"
     mode: 0644
     validate_certs: no
     headers: "Cookie: oraclelicense=accept-securebackup-cookie"
 
 - name: Install Oracle JDK
   yum:
-    name: /tmp/jdk-8u131-linux-x64.rpm
+    name: "/tmp/{{ jdk_rpm }}"
     state: present
