@@ -1,2 +1,2 @@
 ---
-- include: install_phpmyadmin.yml
+- import_tasks: install_phpmyadmin.yml
