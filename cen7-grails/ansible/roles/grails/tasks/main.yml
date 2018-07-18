@@ -1,3 +1,3 @@
 ---
-- include: install_java.yml
-- include: install_grails.yml
+- import_tasks: install_java.yml
+- import_tasks: install_grails.yml
