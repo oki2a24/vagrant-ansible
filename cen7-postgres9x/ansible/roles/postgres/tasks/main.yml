@@ -1,4 +1,4 @@
 ---
-- include: install_needs_pkgs.yml
-- include: install_postgres.yml
-- include: initiate_postgres.yml
+- import_tasks: install_needs_pkgs.yml
+- import_tasks: install_postgres.yml
+- import_tasks: initiate_postgres.yml
