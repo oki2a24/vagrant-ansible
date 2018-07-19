@@ -1,4 +1,4 @@
 ---
-- include: install_needs_pkgs.yml
-- include: install_passenger.yml
-- include: configure_apache.yml
+- import_tasks: install_needs_pkgs.yml
+- import_tasks: install_passenger.yml
+- import_tasks: configure_apache.yml

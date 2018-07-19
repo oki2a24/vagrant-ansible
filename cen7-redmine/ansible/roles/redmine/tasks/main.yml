@@ -1,4 +1,4 @@
 ---
-- include: install_needs_pkgs.yml
-- include: install_redmine.yml
-- include: initiate_redmine.yml
+- import_tasks: install_needs_pkgs.yml
+- import_tasks: install_redmine.yml
+- import_tasks: initiate_redmine.yml
