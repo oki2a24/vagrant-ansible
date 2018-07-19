@@ -1,7 +1,10 @@
 ---
-- name: Install yum-utils
+- name: Install needs packages
   yum:
-    name: yum-utils
+    name:
+      - yum-utils
+      - device-mapper-persistent-data
+      - lvm2
     state: latest
 
 - name: Add Docker repository
@@ -9,6 +12,3 @@
 
 - name: Disable Docker repository
   command: yum-config-manager --disable docker-ce-stable
-
-- name: Make cache
-  command: yum makecache fast
