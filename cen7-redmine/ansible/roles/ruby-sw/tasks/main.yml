@@ -1,4 +1,4 @@
 ---
-- include: install_needs_pkgs.yml
-- include: install_ruby_sw.yml
-- include: install_bundler.yml
+- import_tasks: install_needs_pkgs.yml
+- import_tasks: install_ruby_sw.yml
+- import_tasks: install_bundler.yml

@@ -1,3 +1,3 @@
 ---
-- include: install_needs_pkgs.yml
-- include: install_sdkman.yml
+- import_tasks: install_needs_pkgs.yml
+- import_tasks: install_sdkman.yml
