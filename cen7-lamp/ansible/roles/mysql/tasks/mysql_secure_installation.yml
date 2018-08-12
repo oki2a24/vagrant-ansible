@@ -21,14 +21,6 @@
   debug:
     msg: "{{ mysql_default_password.stdout }}"
 
-    #- name: Set root password
-    #  mysql_user:
-    #    name: root
-    #    host_all: yes
-    #    login_password: "{{ mysql_default_password.stdout }}"
-    #    password: "{{ mysql_root_password }}"
-    #  notify: Restart mysql
-
 - name: Change root user password
   command: mysql -u root -p'{{ mysql_default_password.stdout }}' --connect-expired-password -e "set password for root@'localhost'=password('{{ mysql_root_password }}');"
   ignore_errors: yes
