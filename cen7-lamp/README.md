@@ -7,6 +7,16 @@
 - PHP のエラーは、`/var/log/php-fpm/error.log` に出力される。
 - SELinux は有効
 
+日本語で流れを確認
+
+- <a href="https://weblabo.oscasierra.net/mysql-57-init-setup/" target="_blank">MySQL 5.7 をインストールしたら最初に行うセットアップ | WEB ARCH LABO</a>
+
+mysql_secure_installation 時において、Ansible 的に、初期パスワードを入れる必要があるのが辛そう
+
+本家ドキュメントに従って構築
+
+- <a href="https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/" target="_blank">MySQL :: A Quick Guide to Using the MySQL Yum Repository</a>
+
 yum localinstall https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm
 
 yum repolist all | grep mysql
