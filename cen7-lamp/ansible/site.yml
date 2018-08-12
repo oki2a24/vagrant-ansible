@@ -1,0 +1,10 @@
+---
+- name: Install and configure
+  hosts: all
+  become: true
+  roles:
+    - common
+    - mysql
+#    - nginx
+#    - php
+#    - php-fpm

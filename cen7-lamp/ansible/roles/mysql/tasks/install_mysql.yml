@@ -1,0 +1,12 @@
+---
+- name: Install MySQL
+  yum:
+    name: mysql-community-server
+    enablerepo: mysql57-community
+    state: latest
+
+- name: Start and enable MySQL Service
+  service:
+    name: mysqld
+    state: started
+    enabled: yes
