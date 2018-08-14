@@ -6,5 +6,5 @@
     - common
     - mysql
     - apache
-#    - php
+    - php
 #    - php-fpm
