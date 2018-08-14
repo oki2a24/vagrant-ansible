@@ -1,0 +1,13 @@
+---
+- name: Install MySQL repository
+  yum:
+    name: https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm
+    state: latest
+
+- name: Install yum-utils
+  yum:
+    name: yum-utils
+    state: latest
+
+- name: Disable MySQL repository
+  command: yum-config-manager --disable mysql80-community
