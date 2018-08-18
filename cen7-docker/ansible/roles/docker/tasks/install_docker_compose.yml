@@ -1,0 +1,19 @@
+---
+- name: get OS name
+  command: uname -s
+  register: uname_s
+
+- name: get machine name
+  command: uname -m
+  register: uname_m
+
+- name: install Docker Compose
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ uname_s.stdout }}-{{ uname_m.stdout }}"
+    dest: /usr/local/bin/docker-compose
+    mode: "+x"
+
+- name: download command completion for the bash
+  get_url:
+    url: "https://raw.githubusercontent.com/docker/compose/{{ docker_compose_version }}/contrib/completion/bash/docker-compose"
+    dest: /etc/bash_completion.d/docker-compose
